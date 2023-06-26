@@ -18,3 +18,7 @@
       }  
   
   *********************
+  
+  TODO:
+   
+   - aggiungere un tomato counter 

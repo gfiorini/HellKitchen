@@ -6,23 +6,19 @@ using UnityEngine;
 public class SelectedCounterVisual : MonoBehaviour
 {
     [SerializeField]
-    private Counter counter;
+    private BaseCounter selectedCounter;
 
     [SerializeField]
-    private GameObject visual;
+    private GameObject[] visuals;
 
     private void Start() {
-
          Player.Instance.OnSelectedCounterChanged += PlayerOnOnSelectedCounterChanged;
     }
     private void PlayerOnOnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedArgs e) {
-        //Debug.Log("PlayerOnOnSelectedCounterChanged");
-        if (counter == e.selectedCounter){
-            visual.SetActive(true);
-        } else{
-            visual.SetActive(false);
-        }
-
+        bool flgActive = (selectedCounter == e.SelectedCounter);
+        foreach (var visual in visuals){
+            visual.SetActive(flgActive);    
+        } 
     }
     
 }

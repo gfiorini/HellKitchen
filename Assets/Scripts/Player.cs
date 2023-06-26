@@ -8,7 +8,7 @@ public class Player : MonoBehaviour,  IParentable
 {
 
     public class OnSelectedCounterChangedArgs : EventArgs {
-        public Counter selectedCounter { get; set; }
+        public BaseCounter SelectedCounter { get; set; }
     }
 
     public static Player Instance {get; private set; }
@@ -40,12 +40,8 @@ public class Player : MonoBehaviour,  IParentable
     
     private bool isWalking;
 
-    private Counter selectedCounter;
+    private BaseCounter selectedCounter;
     
-
-
-    
-
     private void Awake() {
         if (Instance != null){
             throw new Exception("Player not null!");
@@ -83,7 +79,7 @@ public class Player : MonoBehaviour,  IParentable
     private void HandleSelectedCounter(Vector3 direction) {
         float interactDistance = 2f;
         if (Physics.Raycast(transform.position, direction, out RaycastHit raycastHit, interactDistance, counterLayerMask)){
-            if (raycastHit.transform.TryGetComponent(out Counter c)){
+            if (raycastHit.transform.TryGetComponent(out BaseCounter c)){
                 SetSelectedCounter(c);
             } else{
                 SetSelectedCounter(null);
@@ -92,11 +88,11 @@ public class Player : MonoBehaviour,  IParentable
             SetSelectedCounter(null);
         }
     }
-    private void SetSelectedCounter(Counter c) {
+    private void SetSelectedCounter(BaseCounter bc) {
         OnSelectedCounterChangedArgs e = new OnSelectedCounterChangedArgs();
-        selectedCounter = c;
+        selectedCounter = bc;
         OnSelectedCounterChanged?.Invoke(null, new OnSelectedCounterChangedArgs {
-            selectedCounter = selectedCounter
+            SelectedCounter = selectedCounter
         });
     }
 
