@@ -74,6 +74,7 @@ public class Player : MonoBehaviour,  IParentable
 
         HandleSelectedCounter(lastDirection);
         HandleMove(direction);
+
     }
 
     private void HandleSelectedCounter(Vector3 direction) {
@@ -97,24 +98,26 @@ public class Player : MonoBehaviour,  IParentable
     }
 
     private void HandleMove(Vector3 direction) {
-        float moveDistance = Time.deltaTime * speed;
-        Boolean canMove = CanMove(direction, moveDistance);
+        if (direction != Vector3.zero){
+            float moveDistance = Time.deltaTime * speed;
+            Boolean canMove = CanMove(direction, moveDistance);
 
-        if (canMove){
-            Move(moveDistance, direction);
-        } else {
-            Vector3 xDirection = new Vector3(direction.x, 0, 0).normalized;
-            canMove = CanMove(xDirection, moveDistance);
             if (canMove){
-                Move(moveDistance, xDirection);
-            } else {
-                Vector3 zDirection = new Vector3(0, 0, direction.z).normalized;
-                canMove = CanMove(zDirection, moveDistance);
+                Move(moveDistance, direction, direction);
+            } else{
+                Vector3 xDirection = new Vector3(direction.x, 0, 0).normalized;
+                canMove = CanMove(xDirection, moveDistance);
                 if (canMove){
-                    Move(moveDistance, zDirection);
+                    Move(moveDistance, xDirection, direction);
+                } else{
+                    Vector3 zDirection = new Vector3(0, 0, direction.z).normalized;
+                    canMove = CanMove(zDirection, moveDistance);
+                    if (canMove){
+                        Move(moveDistance, zDirection, direction);
+                    }
                 }
             }
-        }
+        } 
     }
 
     private bool CanMove(Vector3 direction, float distance) {
@@ -123,9 +126,9 @@ public class Player : MonoBehaviour,  IParentable
             playerRadius, direction, out r, distance);
     }
     
-    private void Move(float distance, Vector3 direction) {
-        transform.position += (distance * direction);
-        transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotateSpeed);
+    private void Move(float distance, Vector3 moveDirection, Vector3 rotateDirection) {
+        transform.position += (distance * moveDirection);
+        transform.forward = Vector3.Lerp(transform.forward, rotateDirection, Time.deltaTime * rotateSpeed);
     }
 
     public bool IsWalking() {
