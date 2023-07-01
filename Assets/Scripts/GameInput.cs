@@ -9,10 +9,15 @@ public class GameInput : MonoBehaviour
     private PlayerInputActions playerInputActions;
 
     public event EventHandler OnInteractHandler;
+    public event EventHandler OnAlternateInteractHandler;
     private void Awake() {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Interaction.performed += InteractionOnperformed;
+        playerInputActions.Player.AlternateInteraction.performed += AlternateInteractionPerformed;
+    }
+    private void AlternateInteractionPerformed(InputAction.CallbackContext obj) {
+        OnAlternateInteractHandler?.Invoke(obj, EventArgs.Empty);
     }
 
     private void InteractionOnperformed(InputAction.CallbackContext obj) {

@@ -53,6 +53,7 @@ public class Player : MonoBehaviour,  IParentable
 
     void Start() {
         gameInput.OnInteractHandler += GameInputOnInteractHandler;
+        gameInput.OnAlternateInteractHandler += GameInputOnAlternateInteractHandler;
     }
 
     private void GameInputOnInteractHandler(object sender, EventArgs e) {
@@ -60,6 +61,12 @@ public class Player : MonoBehaviour,  IParentable
             selectedCounter.Interact(this);
         }
     }
+    
+    private void GameInputOnAlternateInteractHandler(object sender, EventArgs e) {
+        if (selectedCounter != null){
+            selectedCounter.AlternateInteract(this);
+        }
+    }    
 
     void Update() {
 

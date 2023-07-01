@@ -29,5 +29,8 @@ public abstract class BaseCounter : MonoBehaviour,  IParentable
     protected KitchenObjectSO GetKitchenObjectSO() {
         return kitchenObjectSO;
     }
-    
+
+    public void AlternateInteract(Player player) {
+        Debug.Log("AlternateInteract");
+    }
 }
