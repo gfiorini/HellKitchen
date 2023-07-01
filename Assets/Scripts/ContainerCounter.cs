@@ -10,10 +10,10 @@ public class ContainerCounter : BaseCounter
 
     public override void Interact(Player player) {
         if (GetKitchenObject() == null && player.GetKitchenObject() == null){
-            Transform t = Instantiate(GetKitchenObjectSO().prefab, GetKitchenObjectLocation());
-            t.gameObject.GetComponent<KitchenObject>().SetParent(player);
+            AssignKitchenObject(GetKitchenObjectSO(), player);
             OnOpenContainerCounter?.Invoke(this, EventArgs.Empty);
         } 
     }
+
 
 }

@@ -29,7 +29,7 @@ public class KitchenObject : MonoBehaviour
         this.parent = p;
         
         if (p.GetKitchenObject() != null){
-            Debug.LogError("Counter has already a kitchen object");
+            Debug.LogError(p + " has already a kitchen object");
         }
         
         this.parent.SetKitchenObject(this);
@@ -38,6 +38,13 @@ public class KitchenObject : MonoBehaviour
         transform.parent = p.GetKitchenObjectLocation();
         transform.localPosition = Vector3.zero;
     }
-    
-    
+
+
+    public void ClearParent() {
+        this.parent.SetKitchenObject(null);
+    }
+    public void DestroySelf() {
+        this.parent.SetKitchenObject(null);
+        Destroy(gameObject);
+    }
 }

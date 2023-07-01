@@ -8,4 +8,5 @@ public interface IParentable
     void SetKitchenObject(KitchenObject kitchenObject);
     KitchenObject GetKitchenObject();
     Transform GetKitchenObjectLocation();
+    
 }

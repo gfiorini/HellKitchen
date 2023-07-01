@@ -30,7 +30,13 @@ public abstract class BaseCounter : MonoBehaviour,  IParentable
         return kitchenObjectSO;
     }
 
-    public void AlternateInteract(Player player) {
+    protected void AssignKitchenObject(KitchenObjectSO kitchenObjectSO, IParentable parent) {
+        Transform t = Instantiate(kitchenObjectSO.prefab);
+        t.gameObject.GetComponent<KitchenObject>().SetParent(parent);
+    }
+    
+
+    public virtual void AlternateInteract(Player player) {
         Debug.Log("AlternateInteract");
     }
 }
