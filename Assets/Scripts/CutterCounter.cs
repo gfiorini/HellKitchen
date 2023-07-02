@@ -8,6 +8,8 @@ public class CutterCounter  : ClearCounter
 
     public event EventHandler<OnProgressChangeArgs> OnProgressChange;
 
+    public event EventHandler OnCut;
+
     public class OnProgressChangeArgs : EventArgs
     {
         public float progressNormalized;
@@ -42,6 +44,7 @@ public class CutterCounter  : ClearCounter
                 int maxCuts = cutRecipe.numCuts;
                 float progressNormalized = (float)currentNumCuts / maxCuts;
                 UpdateProgressBar(progressNormalized);
+                OnCut?.Invoke(this, EventArgs.Empty);;
                 if (currentNumCuts >= maxCuts){
                     inputKitchenObject.DestroySelf();
                     AssignKitchenObject(cutRecipe.output, this);

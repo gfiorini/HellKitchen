@@ -15,11 +15,11 @@ public class ProgressBar : MonoBehaviour
 
 
     void Start() {
-        cutterCounter.OnProgressChange += RefreshProgressBar;
+        cutterCounter.OnProgressChange += CuttingCounter_OnProgressChanged;
         progressBarImage.fillAmount = 0;
         Hide();
     }
-    private void RefreshProgressBar(object sender, CutterCounter.OnProgressChangeArgs e) {
+    private void CuttingCounter_OnProgressChanged(object sender, CutterCounter.OnProgressChangeArgs e) {
         progressBarImage.fillAmount = 1 - e.progressNormalized;
         if (progressBarImage.fillAmount == 0){
             Hide();
