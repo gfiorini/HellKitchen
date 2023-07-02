@@ -7,48 +7,30 @@ public class CutterCounter  : ClearCounter
 {
 
     public event EventHandler<OnProgressChangeArgs> OnProgressChange;
-    
-    public event EventHandler<OnActiveUIArgs> OnActiveUI;
 
     public class OnProgressChangeArgs : EventArgs
     {
         public float progressNormalized;
     }
 
-    public class OnActiveUIArgs : EventArgs
-    {
-        public bool active;
-    }
-    
-    private int currentNumCuts;
+    private int currentNumCuts = 0;
     
     [SerializeField]
     private CutKitchenObjectRecipeSO[] cutKitchenObjectRecipeSO;
 
-    private void Start() {
-        ResetCutterCounter();
-        DoActiveUI(false);        
-    }
-
     public override void Interact(Player player) {
         if (GetKitchenObject() != null && player.GetKitchenObject() == null){
             GetKitchenObject().SetParent(player);
-            DoActiveUI(false);
+            ResetCuttingCounter(1);       
         } else if (GetKitchenObject() == null && player.GetKitchenObject() != null && ExistRecipeForKitchenObject(player.GetKitchenObject())){
-            ResetCutterCounter();
-            DoActiveUI(true);
             player.GetKitchenObject().SetParent(this);
+            ResetCuttingCounter(0);
         }
+         
     }
-    private void ResetCutterCounter() {
+    private void ResetCuttingCounter(float progress) {
         currentNumCuts = 0;
-        UpdateProgressBar(currentNumCuts, 1);
-    }
-
-    private void DoActiveUI(bool active) {
-        OnActiveUIArgs args = new OnActiveUIArgs();
-        args.active = active;
-        OnActiveUI?.Invoke(this, args);
+        UpdateProgressBar(progress);
     }
 
     public override void AlternateInteract(Player player) {
@@ -57,19 +39,19 @@ public class CutterCounter  : ClearCounter
             CutKitchenObjectRecipeSO cutRecipe = GetCutRecipeSo(inputKitchenObject.GetKitchenScriptableObject());
             if (cutRecipe != null){
                 currentNumCuts++;
-                float maxCuts = cutRecipe.numCuts;
-                UpdateProgressBar(currentNumCuts, maxCuts);
+                int maxCuts = cutRecipe.numCuts;
+                float progressNormalized = (float)currentNumCuts / maxCuts;
+                UpdateProgressBar(progressNormalized);
                 if (currentNumCuts >= maxCuts){
                     inputKitchenObject.DestroySelf();
                     AssignKitchenObject(cutRecipe.output, this);
-                    DoActiveUI(false);
                 }
             }
         }
     }
-    private void UpdateProgressBar(float numCuts, float maxCuts) {
+    private void UpdateProgressBar(float progressNormalized) {
         OnProgressChangeArgs args = new OnProgressChangeArgs();
-        args.progressNormalized = numCuts/ maxCuts;
+        args.progressNormalized = progressNormalized;
         OnProgressChange?.Invoke(this, args);
     }
 

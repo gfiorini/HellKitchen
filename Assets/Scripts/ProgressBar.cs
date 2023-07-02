@@ -10,17 +10,30 @@ public class ProgressBar : MonoBehaviour
     private CutterCounter cutterCounter;
 
     // Start is called before the first frame update
+    [SerializeField]
     private Image progressBarImage;
 
 
     void Start() {
         cutterCounter.OnProgressChange += RefreshProgressBar;
-        progressBarImage = GetComponent<Image>();
+        progressBarImage.fillAmount = 0;
+        Hide();
     }
     private void RefreshProgressBar(object sender, CutterCounter.OnProgressChangeArgs e) {
         progressBarImage.fillAmount = 1 - e.progressNormalized;
+        if (progressBarImage.fillAmount == 0){
+            Hide();
+        } else {
+            Show();
+        }
     }
 
-
+    private void Hide() {
+        gameObject.SetActive(false);
+    }
+    
+    private void Show() {
+        gameObject.SetActive(true);
+    }    
 
 }
