@@ -831,6 +831,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4686669676795042130, guid: f9afc72598ad44644a294c745e429d53,
+        type: 3}
+      propertyPath: _cameraMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8291288177555924716, guid: f9afc72598ad44644a294c745e429d53,
         type: 3}
       propertyPath: m_RootOrder
@@ -1419,12 +1424,12 @@ PrefabInstance:
     - target: {fileID: 4356857897698575861, guid: f9afc72598ad44644a294c745e429d53,
         type: 3}
       propertyPath: m_Name
-      value: InverseCutterCounter
+      value: CutterCounter_2
       objectReference: {fileID: 0}
     - target: {fileID: 4686669676795042130, guid: f9afc72598ad44644a294c745e429d53,
         type: 3}
       propertyPath: _cameraMode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8291288177555924716, guid: f9afc72598ad44644a294c745e429d53,
         type: 3}
