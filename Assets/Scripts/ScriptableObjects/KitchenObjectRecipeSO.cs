@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
- public class CutKitchenObjectRecipeSO : ScriptableObject
+ public class KitchenObjectRecipeSO : ScriptableObject
  {
      public KitchenObjectSO input;
      

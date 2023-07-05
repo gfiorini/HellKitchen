@@ -39,4 +39,6 @@ public abstract class BaseCounter : MonoBehaviour,  IParentable
     public virtual void AlternateInteract(Player player) {
         Debug.Log("AlternateInteract");
     }
+    
+    
 }

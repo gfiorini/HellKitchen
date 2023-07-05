@@ -18,7 +18,7 @@ public class CutterCounter  : ClearCounter
     private int currentNumCuts = 0;
     
     [SerializeField]
-    private CutKitchenObjectRecipeSO[] cutKitchenObjectRecipeSO;
+    private KitchenObjectRecipeSO[] cutKitchenObjectRecipeSO;
 
     public override void Interact(Player player) {
         if (GetKitchenObject() != null && player.GetKitchenObject() == null){
@@ -38,16 +38,16 @@ public class CutterCounter  : ClearCounter
     public override void AlternateInteract(Player player) {
         KitchenObject inputKitchenObject = GetKitchenObject();
         if (inputKitchenObject != null && player.GetKitchenObject() == null){
-            CutKitchenObjectRecipeSO cutRecipe = GetCutRecipeSo(inputKitchenObject.GetKitchenScriptableObject());
-            if (cutRecipe != null){
+            KitchenObjectRecipeSO recipe = GetCutRecipeSo(inputKitchenObject.GetKitchenScriptableObject());
+            if (recipe != null){
                 currentNumCuts++;
-                int maxCuts = cutRecipe.numCuts;
+                int maxCuts = recipe.numCuts;
                 float progressNormalized = (float)currentNumCuts / maxCuts;
                 UpdateProgressBar(progressNormalized);
                 OnCut?.Invoke(this, EventArgs.Empty);;
                 if (currentNumCuts >= maxCuts){
                     inputKitchenObject.DestroySelf();
-                    AssignKitchenObject(cutRecipe.output, this);
+                    AssignKitchenObject(recipe.output, this);
                 }
             }
         }
@@ -58,7 +58,7 @@ public class CutterCounter  : ClearCounter
         OnProgressChange?.Invoke(this, args);
     }
 
-    private CutKitchenObjectRecipeSO GetCutRecipeSo(KitchenObjectSO input) {
+    private KitchenObjectRecipeSO GetCutRecipeSo(KitchenObjectSO input) {
         foreach (var ko in cutKitchenObjectRecipeSO){
             if (ko.input.objectName == input.objectName){
                 return ko;
