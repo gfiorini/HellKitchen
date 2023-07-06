@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
- public class KitchenObjectRecipeSO : ScriptableObject
+ public class StoveKitchenObjectRecipeSO : ScriptableObject
  {
      public KitchenObjectSO input;
      
      public KitchenObjectSO output;
 
-     public int numCuts;
+     public float timer;
+
+     public StoveCounter.StoveState state = StoveCounter.StoveState.IDLE;
 
  }

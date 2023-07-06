@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da8586a88c5418f8ba30596132407ca, type: 3}
-  m_Name: RawMeatCookedMeatRecipe
+  m_Script: {fileID: 11500000, guid: 800f06b95cef0e64eb8b106c26c7525d, type: 3}
+  m_Name: MeatBurned
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: ba5fb4ecbea263d419a0fafd2dc64ad4, type: 2}
-  output: {fileID: 11400000, guid: 34dc0abfcf47c914cafd210dcacf3eff, type: 2}
-  timer: 1
-  state: 1
+  icon: {fileID: 21300000, guid: 713ea9afa60dd6e4ebf6503a33e8cc99, type: 3}
+  prefab: {fileID: 733268619568248656, guid: d24d977bedca3a249985605d9c236b9d, type: 3}
+  objectName: MeatBurned

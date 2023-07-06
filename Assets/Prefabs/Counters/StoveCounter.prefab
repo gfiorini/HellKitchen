@@ -581,7 +581,7 @@ PrefabInstance:
     - target: {fileID: 5925448037620822442, guid: 6a309ae9732a6f64da4bd23a082af030,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5925448037620822442, guid: 6a309ae9732a6f64da4bd23a082af030,
         type: 3}
@@ -675,7 +675,8 @@ MonoBehaviour:
   kitchenObjectSO: {fileID: 0}
   spawnLocation: {fileID: 9180296822937281947}
   recipes:
-  - {fileID: 11400000, guid: f8d0045dee2d972419c987ce04540eee, type: 2}
+  - {fileID: 11400000, guid: bb6f897e8ae94d3409fb4e6d0924f388, type: 2}
+  - {fileID: 11400000, guid: 182e5a61ab63c8c499d05138fcdb2cf3, type: 2}
 --- !u!4 &9180296822937281947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1828681229044555198, guid: 6a309ae9732a6f64da4bd23a082af030,

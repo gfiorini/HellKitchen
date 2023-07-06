@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da8586a88c5418f8ba30596132407ca, type: 3}
-  m_Name: RawMeatCookedMeatRecipe
+  m_Name: MeatCookedToBurnedMeatRecipe
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: ba5fb4ecbea263d419a0fafd2dc64ad4, type: 2}
-  output: {fileID: 11400000, guid: 34dc0abfcf47c914cafd210dcacf3eff, type: 2}
-  timer: 1
-  state: 1
+  input: {fileID: 11400000, guid: 34dc0abfcf47c914cafd210dcacf3eff, type: 2}
+  output: {fileID: 11400000, guid: ad83200d3ee9b5b4882d07917009050f, type: 2}
+  timer: 3
+  state: 2
