@@ -7,6 +7,18 @@ using UnityEngine;
 public class StoveCounter : BaseCounter
 {
 
+    public event EventHandler<OnProgressChangeArgs> OnProgressChange;
+    
+    public class OnProgressChangeArgs : EventArgs
+    {
+        public float normalizedTime;
+
+        public OnProgressChangeArgs(float normalizedTime) {
+            this.normalizedTime = normalizedTime;
+        }
+    }
+        
+    
     public enum StoveState {
         IDLE,
         COOKING,
@@ -42,6 +54,9 @@ public class StoveCounter : BaseCounter
             currentRecipe = GetRecipe(ko);
             state = StoveState.OVERCOOKING;
             elapsedCookTime = 0;
+            OnProgressChange?.Invoke(this,new OnProgressChangeArgs(1));
+        } else{
+            OnProgressChange?.Invoke(this,new OnProgressChangeArgs(elapsedCookTime / currentRecipe.timer));
         }
     }
 
@@ -58,6 +73,7 @@ public class StoveCounter : BaseCounter
     public override void Interact(Player player) {
         if (GetKitchenObject() != null && player.GetKitchenObject() == null){
             GetKitchenObject().SetParent(player);
+            OnProgressChange?.Invoke(this,new OnProgressChangeArgs(0));
             Idle();
         } else if (GetKitchenObject() == null && player.GetKitchenObject() != null){
             StoveKitchenObjectRecipeSO recipe = GetRecipe(player.GetKitchenObject().GetKitchenScriptableObject());
@@ -87,3 +103,5 @@ public class StoveCounter : BaseCounter
     }
 
 }
+
+

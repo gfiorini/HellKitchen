@@ -12,15 +12,15 @@ GameObject:
   - component: {fileID: 3202931227949263670}
   - component: {fileID: 3330990047697398973}
   - component: {fileID: 8925291607491737467}
-  - component: {fileID: 4322284044452064566}
   - component: {fileID: 874491961539695902}
+  - component: {fileID: 7027555386507177426}
   m_Layer: 0
   m_Name: ProgressBarUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1223831978438312532
 RectTransform:
   m_ObjectHideFlags: 0
@@ -105,20 +105,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4322284044452064566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872680762393637872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 786467a6c2b564a409f6ce42287d6df6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cutterCounter: {fileID: 0}
-  progressBarImage: {fileID: 3809700246767734350}
 --- !u!114 &874491961539695902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +118,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraMode: 2
+--- !u!114 &7027555386507177426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872680762393637872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e33b869638df304cb7f9a0909db9a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counter: {fileID: 6601450339277439719}
+  progressBarImage: {fileID: 3809700246767734350}
 --- !u!1 &2535249412473832550
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 1
+  m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1001 &2523772328109898992
@@ -581,7 +581,7 @@ PrefabInstance:
     - target: {fileID: 5925448037620822442, guid: 6a309ae9732a6f64da4bd23a082af030,
         type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5925448037620822442, guid: 6a309ae9732a6f64da4bd23a082af030,
         type: 3}
