@@ -23,10 +23,10 @@ public class CutterCounter  : ClearCounter
     public override void Interact(Player player) {
         if (GetKitchenObject() != null && player.GetKitchenObject() == null){
             GetKitchenObject().SetParent(player);
-            ResetCuttingCounter(1);       
+            ResetCuttingCounter(0);       
         } else if (GetKitchenObject() == null && player.GetKitchenObject() != null && ExistRecipeForKitchenObject(player.GetKitchenObject())){
             player.GetKitchenObject().SetParent(this);
-            ResetCuttingCounter(0);
+            ResetCuttingCounter(1);
         }
          
     }
@@ -43,7 +43,7 @@ public class CutterCounter  : ClearCounter
                 currentNumCuts++;
                 int maxCuts = recipe.numCuts;
                 float progressNormalized = (float)currentNumCuts / maxCuts;
-                UpdateProgressBar(progressNormalized);
+                UpdateProgressBar(1 - progressNormalized);
                 OnCut?.Invoke(this, EventArgs.Empty);;
                 if (currentNumCuts >= maxCuts){
                     inputKitchenObject.DestroySelf();
