@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutterCounter  : ClearCounter
+public class CutterCounter  : ClearCounter, IHasProgress
 {
 
-    public event EventHandler<OnProgressChangeArgs> OnProgressChange;
-
-    public event EventHandler OnCut;
-
+    public event EventHandler<IHasProgress.OnProgressChangeArgs> OnProgressChange;
     public class OnProgressChangeArgs : EventArgs
     {
         public float progressNormalized;
     }
+    public event EventHandler OnCut;
+
+
 
     private int currentNumCuts = 0;
     
@@ -53,7 +53,7 @@ public class CutterCounter  : ClearCounter
         }
     }
     private void UpdateProgressBar(float progressNormalized) {
-        OnProgressChangeArgs args = new OnProgressChangeArgs();
+        IHasProgress.OnProgressChangeArgs args = new IHasProgress.OnProgressChangeArgs();
         args.progressNormalized = progressNormalized;
         OnProgressChange?.Invoke(this, args);
     }

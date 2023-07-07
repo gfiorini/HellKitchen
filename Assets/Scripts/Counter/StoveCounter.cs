@@ -4,20 +4,9 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
-public class StoveCounter : BaseCounter
+public class StoveCounter : BaseCounter, IHasProgress
 {
-
-    public event EventHandler<OnProgressChangeArgs> OnProgressChange;
-    
-    public class OnProgressChangeArgs : EventArgs
-    {
-        public float normalizedTime;
-
-        public OnProgressChangeArgs(float normalizedTime) {
-            this.normalizedTime = normalizedTime;
-        }
-    }
-        
+    public event EventHandler<IHasProgress.OnProgressChangeArgs> OnProgressChange;
     
     public enum StoveState {
         IDLE,
@@ -29,6 +18,8 @@ public class StoveCounter : BaseCounter
     private StoveKitchenObjectRecipeSO[] recipes;
 
     private float elapsedCookTime = 0f;
+    
+    private float overCookTime = 0f;
 
     private StoveKitchenObjectRecipeSO currentRecipe;
 
@@ -54,26 +45,38 @@ public class StoveCounter : BaseCounter
             currentRecipe = GetRecipe(ko);
             state = StoveState.OVERCOOKING;
             elapsedCookTime = 0;
-            OnProgressChange?.Invoke(this,new OnProgressChangeArgs(1));
+            overCookTime = 0;
+            IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
+            p.progressNormalized = 1;
+            OnProgressChange?.Invoke(this,p);
         } else{
-            OnProgressChange?.Invoke(this,new OnProgressChangeArgs(elapsedCookTime / currentRecipe.timer));
+            IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
+            p.progressNormalized = elapsedCookTime / currentRecipe.timer;
+            OnProgressChange?.Invoke(this,p);
         }
     }
 
     private void OverCooking() {
-        elapsedCookTime += Time.deltaTime;
-        if (elapsedCookTime > currentRecipe.timer){
+        overCookTime += Time.deltaTime;
+        if (overCookTime > currentRecipe.timer){
             GetKitchenObject().DestroySelf();
             AssignKitchenObject(currentRecipe.output, this);
+            OnProgressChange?.Invoke(this,new IHasProgress.OnProgressChangeArgs());     
             currentRecipe = null;
             state = StoveState.IDLE;
-        }        
+        } else{
+            IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
+            p.progressNormalized = overCookTime / currentRecipe.timer;
+            OnProgressChange?.Invoke(this,p);            
+        }  
     }
 
     public override void Interact(Player player) {
         if (GetKitchenObject() != null && player.GetKitchenObject() == null){
             GetKitchenObject().SetParent(player);
-            OnProgressChange?.Invoke(this,new OnProgressChangeArgs(0));
+            IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
+            p.progressNormalized = 0;            
+            OnProgressChange?.Invoke(this, p);
             Idle();
         } else if (GetKitchenObject() == null && player.GetKitchenObject() != null){
             StoveKitchenObjectRecipeSO recipe = GetRecipe(player.GetKitchenObject().GetKitchenScriptableObject());

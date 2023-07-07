@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class StoveCounterProgressBar : MonoBehaviour
 {
     [SerializeField]
-    private StoveCounter counter;
+    private GameObject hasProgressGameObject;
+    
+    private IHasProgress hasProgressObject;
 
     // Start is called before the first frame update
     [SerializeField]
@@ -15,12 +17,13 @@ public class StoveCounterProgressBar : MonoBehaviour
 
 
     void Start() {
-        counter.OnProgressChange += StoveCounter_OnProgressChanged;
+        hasProgressObject = hasProgressGameObject.GetComponent<IHasProgress>();
+        hasProgressObject.OnProgressChange += StoveCounter_OnProgressChanged;
         progressBarImage.fillAmount = 0;
         Hide();
     }
-    private void StoveCounter_OnProgressChanged(object sender, StoveCounter.OnProgressChangeArgs e) {
-        progressBarImage.fillAmount = e.normalizedTime;
+    private void StoveCounter_OnProgressChanged(object sender, IHasProgress.OnProgressChangeArgs e) {
+        progressBarImage.fillAmount = e.progressNormalized;
         if (progressBarImage.fillAmount == 0){
             Hide();
         } else {
