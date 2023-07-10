@@ -12,7 +12,9 @@ public abstract class BaseCounter : MonoBehaviour,  IParentable
 
     private KitchenObject kitchenObject;
 
-    public abstract void Interact(Player player);
+    public virtual void Interact(Player player) {
+
+    }
 
     public KitchenObject GetKitchenObject() {
         return kitchenObject;
