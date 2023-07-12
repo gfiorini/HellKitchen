@@ -72,13 +72,12 @@ public class StoveCounter : BaseCounter, IHasProgress
     }
 
     public override void Interact(Player player) {
-        if (GetKitchenObject() != null && player.GetKitchenObject() == null){
+        if (GetKitchenObject() != null && player.GetKitchenObject() == null) {
             GetKitchenObject().SetParent(player);
-            IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
-            p.progressNormalized = 0;            
-            OnProgressChange?.Invoke(this, p);
+            ShutDown();
             Idle();
-        } else if (GetKitchenObject() == null && player.GetKitchenObject() != null){
+        }
+        else if (GetKitchenObject() == null && player.GetKitchenObject() != null){
             StoveKitchenObjectRecipeSO recipe = GetRecipe(player.GetKitchenObject().GetKitchenScriptableObject());
             if (recipe != null){
                 if (recipe.state == StoveState.COOKING){
@@ -88,9 +87,25 @@ public class StoveCounter : BaseCounter, IHasProgress
                     elapsedCookTime = 0;
                 }
             }
+        } else if (GetKitchenObject() != null && player.GetKitchenObject() != null){
+            if (player.GetKitchenObject().TryGetPlate(out Plate plate)){
+                if (plate.TryAddIngredient(GetKitchenObject().GetKitchenScriptableObject())){
+                    ShutDown();
+                    Idle();
+                    GetKitchenObject().DestroySelf();
+                    
+                }
+            }
         }
     }
-    
+
+    private void ShutDown()
+    {
+        IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
+        p.progressNormalized = 0;
+        OnProgressChange?.Invoke(this, p);
+    }
+
     private void Idle() {
         state = StoveState.IDLE;
         elapsedCookTime = 0;

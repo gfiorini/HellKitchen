@@ -27,8 +27,14 @@ public class CutterCounter  : ClearCounter, IHasProgress
         } else if (GetKitchenObject() == null && player.GetKitchenObject() != null && ExistRecipeForKitchenObject(player.GetKitchenObject())){
             player.GetKitchenObject().SetParent(this);
             ResetCuttingCounter(1);
+        } else if (GetKitchenObject() != null && player.GetKitchenObject() != null){
+            if (player.GetKitchenObject().TryGetPlate(out Plate plate)){
+                if (plate.TryAddIngredient(GetKitchenObject().GetKitchenScriptableObject())){
+                    GetKitchenObject().DestroySelf();
+                }
+            }
         }
-         
+
     }
     private void ResetCuttingCounter(float progress) {
         currentNumCuts = 0;
