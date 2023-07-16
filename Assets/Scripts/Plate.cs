@@ -14,14 +14,14 @@ public class Plate : KitchenObject
     [SerializeField]
     private List<KitchenObjectSO> admittedKitchenObjects;
 
-    private List<KitchenObjectSO> list;
+    private List<KitchenObjectSO> ingredients;
 
     private void Awake(){
-        list = new List<KitchenObjectSO>();
+        ingredients = new List<KitchenObjectSO>();
     }
     public bool TryAddIngredient(KitchenObjectSO koSO){
-        if (admittedKitchenObjects.Contains(koSO) && !list.Contains(koSO)){
-            list.Add(koSO);
+        if (admittedKitchenObjects.Contains(koSO) && !ingredients.Contains(koSO)){
+            ingredients.Add(koSO);
             OnAddIngredient?.Invoke(this, new IngredientEventArgs {
                 ingredient = koSO
             });
@@ -31,4 +31,9 @@ public class Plate : KitchenObject
         }
         
     }
+
+    public List<KitchenObjectSO> GetIngredients() {
+        return ingredients;
+    }
+    
 }
