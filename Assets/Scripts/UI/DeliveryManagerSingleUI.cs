@@ -42,7 +42,7 @@ public class DeliveryManagerSingleUI : MonoBehaviour
         foreach (RecipeSO recipeSo in waitingList){
             Transform recipe = Instantiate(template, container);
             RecipeUI recipeUI = recipe.GetComponent<RecipeUI>();
-            recipeUI.SetText(recipeSo);
+            recipeUI.SetRecipe(recipeSo);
             recipe.gameObject.SetActive(true);
         }
     }
