@@ -11,9 +11,12 @@ public class DeliveryManager : MonoBehaviour
     private RecipeCollectionSO recipeCollection;
     public static DeliveryManager Instance {get; private set; }
 
+    public event EventHandler OnOrderCreated;
+    public event EventHandler OnOrderRemoved;
+    
     private float SPAWN_TIMER = 4f;
     private int MAX_RECIPES = 3;
-    private float currentSpawnTimer;
+    private float currentSpawnTimer = 4f;
     private int currentNumRecipes;
     
     private List<RecipeSO> waitingList;
@@ -34,6 +37,7 @@ public class DeliveryManager : MonoBehaviour
                 RecipeSO recipe = recipeCollection.recipes[Random.Range(0, recipeCollection.recipes.Count)];
                 waitingList.Add(recipe);
                 Debug.Log(recipe);
+                OnOrderCreated?.Invoke(this, EventArgs.Empty);
                 currentSpawnTimer = 0;
             }
         }
@@ -51,6 +55,7 @@ public class DeliveryManager : MonoBehaviour
         }
         if (foundRecipe != null){
             waitingList.Remove(foundRecipe);
+            OnOrderRemoved?.Invoke(this, EventArgs.Empty);
             plate.DestroySelf();
         }
     }
@@ -75,6 +80,8 @@ public class DeliveryManager : MonoBehaviour
         }
     }
 
-
+    public List<RecipeSO> GetWaitingList() {
+        return waitingList;
+    }
 
 }
