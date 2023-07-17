@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeliveryManagerUI : MonoBehaviour
+public class DeliveryManagerSingleUI : MonoBehaviour
 {
     [SerializeField]
     private Transform container;
@@ -11,7 +11,7 @@ public class DeliveryManagerUI : MonoBehaviour
     [SerializeField]
     private Transform template;
 
-    private DeliveryManager deliveryManager;// = DeliveryManager.Instance;
+    private DeliveryManager deliveryManager;
 
     private void Awake() {
         template.gameObject.SetActive(false);
@@ -41,6 +41,8 @@ public class DeliveryManagerUI : MonoBehaviour
         List<RecipeSO> waitingList = deliveryManager.GetWaitingList();
         foreach (RecipeSO recipeSo in waitingList){
             Transform recipe = Instantiate(template, container);
+            RecipeUI recipeUI = recipe.GetComponent<RecipeUI>();
+            recipeUI.SetText(recipeSo);
             recipe.gameObject.SetActive(true);
         }
     }
