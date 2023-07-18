@@ -36,7 +36,6 @@ public class DeliveryManager : MonoBehaviour
             if (currentSpawnTimer >= SPAWN_TIMER){
                 RecipeSO recipe = recipeCollection.recipes[Random.Range(0, recipeCollection.recipes.Count)];
                 waitingList.Add(recipe);
-                Debug.Log(recipe);
                 OnOrderCreated?.Invoke(this, EventArgs.Empty);
                 currentSpawnTimer = 0;
             }
