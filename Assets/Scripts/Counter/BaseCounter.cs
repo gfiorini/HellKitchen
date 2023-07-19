@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public abstract class BaseCounter : MonoBehaviour,  IParentable
 
     private KitchenObject kitchenObject;
 
+    public static event EventHandler OnDroppedObject;
+
     public virtual void Interact(Player player) {
 
     }
@@ -21,6 +24,9 @@ public abstract class BaseCounter : MonoBehaviour,  IParentable
     }
     
     public void  SetKitchenObject(KitchenObject ko) {
+        if (ko != null){
+            OnDroppedObject?.Invoke(this.gameObject, EventArgs.Empty);
+        }
         this.kitchenObject = ko;
     }
 

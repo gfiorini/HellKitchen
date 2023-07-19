@@ -11,6 +11,8 @@ public class Player : MonoBehaviour,  IParentable
         public BaseCounter SelectedCounter { get; set; }
     }
 
+    public event EventHandler OnPickupObject;
+
     public static Player Instance {get; private set; }
     
     public event EventHandler<OnSelectedCounterChangedArgs> OnSelectedCounterChanged;
@@ -143,6 +145,9 @@ public class Player : MonoBehaviour,  IParentable
     }
 
     public void SetKitchenObject(KitchenObject kitchenObject) {
+        if (kitchenObject != null){
+            OnPickupObject?.Invoke(this.gameObject, EventArgs.Empty);
+        }
         this.kitchenObject = kitchenObject;
     }
     public KitchenObject GetKitchenObject() {

@@ -51,7 +51,7 @@ public class DeliveryManager : MonoBehaviour
         foreach (RecipeSO recipe in waitingList){
             if (IsValidRecipe(deliveryIngredients, recipe)){
                 foundRecipe = recipe;
-                OnOrderSuccess?.Invoke(Player.Instance.transform, EventArgs.Empty);
+                OnOrderSuccess?.Invoke(Player.Instance.gameObject, EventArgs.Empty);
                 break;
             }
         }
@@ -60,7 +60,7 @@ public class DeliveryManager : MonoBehaviour
             OnOrderRemoved?.Invoke(this, EventArgs.Empty);
             plate.DestroySelf();
         } else{
-            OnOrderFailed?.Invoke(Player.Instance.transform, EventArgs.Empty);
+            OnOrderFailed?.Invoke(Player.Instance.gameObject, EventArgs.Empty);
         }
     }
     private bool IsValidRecipe(List<KitchenObjectSO> deliveryIngredients, RecipeSO recipe) {

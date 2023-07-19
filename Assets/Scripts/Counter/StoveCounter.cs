@@ -7,6 +7,12 @@ using UnityEngine;
 public class StoveCounter : BaseCounter, IHasProgress
 {
     public event EventHandler<IHasProgress.OnProgressChangeArgs> OnProgressChange;
+
+    public event EventHandler<OnStateChangedArgs> OnStateChanged;
+    public class OnStateChangedArgs : EventArgs
+    {
+        public StoveState state;
+    }
     
     public enum StoveState {
         IDLE,
@@ -33,6 +39,9 @@ public class StoveCounter : BaseCounter, IHasProgress
             case StoveState.OVERCOOKING:
                 OverCooking();
                 break;
+            case StoveState.IDLE:
+                Idle();
+                break;
         }
     }
     
@@ -44,6 +53,7 @@ public class StoveCounter : BaseCounter, IHasProgress
             AssignKitchenObject(ko, this);
             currentRecipe = GetRecipe(ko);
             state = StoveState.OVERCOOKING;
+            OnStateChanged?.Invoke(this, new OnStateChangedArgs{state = state});
             elapsedCookTime = 0;
             overCookTime = 0;
             IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
@@ -64,6 +74,7 @@ public class StoveCounter : BaseCounter, IHasProgress
             OnProgressChange?.Invoke(this,new IHasProgress.OnProgressChangeArgs());     
             currentRecipe = null;
             state = StoveState.IDLE;
+            OnStateChanged?.Invoke(this, new OnStateChangedArgs{state = state});
         } else{
             IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
             p.progressNormalized = overCookTime / currentRecipe.timer;
@@ -82,6 +93,7 @@ public class StoveCounter : BaseCounter, IHasProgress
             if (recipe != null){
                 if (recipe.state == StoveState.COOKING){
                     state = recipe.state;
+                    OnStateChanged?.Invoke(this, new OnStateChangedArgs{state = state});
                     player.GetKitchenObject().SetParent(this);
                     currentRecipe = recipe;
                     elapsedCookTime = 0;
@@ -108,6 +120,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
     private void Idle() {
         state = StoveState.IDLE;
+        OnStateChanged?.Invoke(this, new OnStateChangedArgs{state = state});
         elapsedCookTime = 0;
     }
 
