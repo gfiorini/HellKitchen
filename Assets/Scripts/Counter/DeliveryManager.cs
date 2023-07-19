@@ -13,6 +13,8 @@ public class DeliveryManager : MonoBehaviour
 
     public event EventHandler OnOrderCreated;
     public event EventHandler OnOrderRemoved;
+    public event EventHandler OnOrderSuccess;
+    public event EventHandler OnOrderFailed;
     
     private float SPAWN_TIMER = 4f;
     private int MAX_RECIPES = 3;
@@ -49,6 +51,7 @@ public class DeliveryManager : MonoBehaviour
         foreach (RecipeSO recipe in waitingList){
             if (IsValidRecipe(deliveryIngredients, recipe)){
                 foundRecipe = recipe;
+                OnOrderSuccess?.Invoke(Player.Instance.transform, EventArgs.Empty);
                 break;
             }
         }
@@ -56,6 +59,8 @@ public class DeliveryManager : MonoBehaviour
             waitingList.Remove(foundRecipe);
             OnOrderRemoved?.Invoke(this, EventArgs.Empty);
             plate.DestroySelf();
+        } else{
+            OnOrderFailed?.Invoke(Player.Instance.transform, EventArgs.Empty);
         }
     }
     private bool IsValidRecipe(List<KitchenObjectSO> deliveryIngredients, RecipeSO recipe) {

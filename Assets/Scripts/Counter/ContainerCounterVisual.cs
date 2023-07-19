@@ -12,10 +12,8 @@ public class ContainerCounterVisual : MonoBehaviour
 
     private Animator animator;
 
-    public void Awake() {
-        containerCounter.OnOpenContainerCounter += AnimateContainerOpen;
-    }
     public void Start() {
+        containerCounter.OnOpenContainerCounter += AnimateContainerOpen;
         animator = GetComponent<Animator>();
     }
 
