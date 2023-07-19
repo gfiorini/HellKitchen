@@ -10,6 +10,8 @@ public class Plate : KitchenObject
     public class IngredientEventArgs : EventArgs {
         public KitchenObjectSO ingredient;
     }
+    
+    public static event EventHandler OnPlateAdd;
         
     [SerializeField]
     private List<KitchenObjectSO> admittedKitchenObjects;
@@ -25,6 +27,7 @@ public class Plate : KitchenObject
             OnAddIngredient?.Invoke(this, new IngredientEventArgs {
                 ingredient = koSO
             });
+            OnPlateAdd?.Invoke(this.gameObject, EventArgs.Empty);
             return true;
         } else {
             return false;
