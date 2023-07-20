@@ -19,7 +19,7 @@ public class DeliveryManager : MonoBehaviour
     private float SPAWN_TIMER = 4f;
     private int MAX_RECIPES = 3;
     private float currentSpawnTimer = 4f;
-    private int currentNumRecipes;
+    private int deliveries;
     
     private List<RecipeSO> waitingList;
 
@@ -58,6 +58,7 @@ public class DeliveryManager : MonoBehaviour
         if (foundRecipe != null){
             waitingList.Remove(foundRecipe);
             OnOrderRemoved?.Invoke(this, EventArgs.Empty);
+            deliveries++;
             plate.DestroySelf();
         } else{
             OnOrderFailed?.Invoke(Player.Instance.gameObject, EventArgs.Empty);
@@ -88,4 +89,7 @@ public class DeliveryManager : MonoBehaviour
         return waitingList;
     }
 
+    public int GetDeliveries() {
+        return deliveries;
+    }
 }
