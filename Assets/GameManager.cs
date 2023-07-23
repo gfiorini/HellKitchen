@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
         public GameState state;
     };
     public event EventHandler<EventGameState> OnGameStateChange;
+    
+    public event EventHandler OnPause;
+    public event EventHandler OnResume;
 
     private float waitToStartTimer = 1f;
     private float countdownTimer = 3f;
@@ -69,10 +72,12 @@ public class GameManager : MonoBehaviour
     private void GameInputOnPauseHandler(object sender, EventArgs e) {
         TogglePause();
     }
-    private void TogglePause() {
+    public void TogglePause() {
         if (!isPaused){
+            OnPause?.Invoke(this, EventArgs.Empty);
             Time.timeScale = 0f;
         } else{
+            OnResume?.Invoke(this, EventArgs.Empty);
             Time.timeScale = 1f;
         }
     
