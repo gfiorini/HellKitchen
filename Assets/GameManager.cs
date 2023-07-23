@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
         RUNNING,
         GAME_OVER
     }
-
+    
     public class EventGameState : EventArgs
     {
         public GameState state;
@@ -27,11 +27,17 @@ public class GameManager : MonoBehaviour
     private float currentRunTimer;
     
     private GameState state = GameState.WAIT_TO_START;
+
+    private bool isPaused;
     
     private void Awake() {
         Instance = this;
     }
 
+    private void Start() {
+        isPaused = false;
+        GameInput.Instance.OnPauseHandler += GameInputOnPauseHandler;
+    }
     private void Update() {
         switch (state){
             case GameState.WAIT_TO_START:
@@ -60,6 +66,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void GameInputOnPauseHandler(object sender, EventArgs e) {
+        TogglePause();
+    }
+    private void TogglePause() {
+        if (!isPaused){
+            Time.timeScale = 0f;
+        } else{
+            Time.timeScale = 1f;
+        }
+    
+        isPaused = !isPaused;
+    }
     public float GetCountdownTimer() {
         return countdownTimer;
     }

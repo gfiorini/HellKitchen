@@ -58,6 +58,7 @@ public class Player : MonoBehaviour,  IParentable
         gameInput.OnAlternateInteractHandler += GameInputOnAlternateInteractHandler;
     }
 
+
     private void GameInputOnInteractHandler(object sender, EventArgs e) {
         if (selectedCounter != null){
             selectedCounter.Interact(this);
