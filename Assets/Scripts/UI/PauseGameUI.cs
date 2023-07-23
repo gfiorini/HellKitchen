@@ -23,6 +23,12 @@ public class PauseGameUI : MonoBehaviour
             Loader.Load(Loader.Scene.MainMenuScene);
         });        
     }
+
+    private void OnDestroy() {
+        GameManager.Instance.OnPause -= OnPause;
+        GameManager.Instance.OnResume -= OnResume;
+    }
+
     private void OnResume(object sender, EventArgs e) {
         Hide();
     }

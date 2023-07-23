@@ -20,6 +20,9 @@ public class CutterCounter  : ClearCounter, IHasProgress
     [SerializeField]
     private CutterKitchenObjectRecipeSO[] cutKitchenObjectRecipeSO;
 
+    public new static void ResetEvents() {
+        OnAnyCut = null;
+    }
     public override void Interact(Player player) {
         if (GetKitchenObject() != null && player.GetKitchenObject() == null){
             GetKitchenObject().SetParent(player);
@@ -51,7 +54,9 @@ public class CutterCounter  : ClearCounter, IHasProgress
                 float progressNormalized = (float)currentNumCuts / maxCuts;
                 UpdateProgressBar(1 - progressNormalized);
                 OnCut?.Invoke(this, EventArgs.Empty);
+                Debug.Log("Num On Any Cut:" + OnAnyCut.GetInvocationList().Length);
                 OnAnyCut?.Invoke(gameObject, EventArgs.Empty);
+                
                 if (currentNumCuts >= maxCuts){
                     inputKitchenObject.DestroySelf();
                     AssignKitchenObject(recipe.output, this);

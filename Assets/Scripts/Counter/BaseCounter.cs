@@ -19,6 +19,9 @@ public abstract class BaseCounter : MonoBehaviour,  IParentable
 
     }
 
+    public static void ResetEvents() {
+        OnDroppedObject = null;
+    }
     public KitchenObject GetKitchenObject() {
         return kitchenObject;
     }

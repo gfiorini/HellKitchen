@@ -13,6 +13,10 @@ public class MainMenuUI : MonoBehaviour
     private Button quitButton;
 
     private void Awake() {
+        
+        //reset pause
+        Time.timeScale = 1f;
+        
         quitButton.onClick.AddListener(() => {
             Application.Quit();
         });

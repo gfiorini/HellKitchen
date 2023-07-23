@@ -14,6 +14,10 @@ public class TrashCounter : BaseCounter
             player.GetKitchenObject().DestroySelf();
         }
     }
+    
+    public new static void ResetEvents() {
+        OnTrash = null;
+    }
 
     
 }

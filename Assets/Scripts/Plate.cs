@@ -13,6 +13,10 @@ public class Plate : KitchenObject
     
     public static event EventHandler OnPlateAdd;
         
+    public static void ResetEvents() {
+        OnPlateAdd = null;
+    }
+    
     [SerializeField]
     private List<KitchenObjectSO> admittedKitchenObjects;
 
