@@ -54,7 +54,6 @@ public class CutterCounter  : ClearCounter, IHasProgress
                 float progressNormalized = (float)currentNumCuts / maxCuts;
                 UpdateProgressBar(1 - progressNormalized);
                 OnCut?.Invoke(this, EventArgs.Empty);
-                Debug.Log("Num On Any Cut:" + OnAnyCut.GetInvocationList().Length);
                 OnAnyCut?.Invoke(gameObject, EventArgs.Empty);
                 
                 if (currentNumCuts >= maxCuts){

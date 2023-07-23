@@ -41,7 +41,6 @@ public class SFXManager : MonoBehaviour
     }
     private void OnAnyCut(object sender, EventArgs e) {
         AudioClip clip = GetAudioClip(sfx.chop);
-        Debug.Log((transform.position));
         PlaySound(clip, (sender as GameObject).transform.position);
     }
     private void OnOrderFailed(object sender, EventArgs e) {

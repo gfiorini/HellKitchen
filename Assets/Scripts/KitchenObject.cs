@@ -19,7 +19,6 @@ public class KitchenObject : MonoBehaviour
     }
     public void SetParent(IParentable p) {
         
-//        Debug.Log("SetCounter", c);
         //rimuovo il riferimento del vecchio oggetto dal counter
         if (this.parent != null){
             this.parent.SetKitchenObject(null);

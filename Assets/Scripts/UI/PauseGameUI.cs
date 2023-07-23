@@ -12,6 +12,10 @@ public class PauseGameUI : MonoBehaviour
     
     [SerializeField]
     private Button mainMenuButton;
+    
+    [SerializeField]
+    private Button optionsButton;
+    
     void Start() {
         Hide();
         GameManager.Instance.OnPause += OnPause;
@@ -22,6 +26,9 @@ public class PauseGameUI : MonoBehaviour
         mainMenuButton.onClick.AddListener(() => {
             Loader.Load(Loader.Scene.MainMenuScene);
         });        
+        optionsButton.onClick.AddListener(() => {
+            OptionsUI.Instance.Show();
+        });           
     }
 
     private void OnDestroy() {
