@@ -17,9 +17,11 @@ public class SFXManager : MonoBehaviour
 
     private void Awake() {
         Instance = this;
+        if (PlayerPrefs.HasKey(Preferences.SFX_VOLUME.ToString())){
+            volume = PlayerPrefs.GetFloat(Preferences.SFX_VOLUME.ToString());
+        }        
     }
     void Start() {
-        //volume = PlayerPrefs.GetFloat(Preferences.SFX_VOLUME.ToString());
         DeliveryManager.Instance.OnOrderSuccess += OnOrderSuccess;
         DeliveryManager.Instance.OnOrderFailed += OnOrderFailed;
         CutterCounter.OnAnyCut += OnAnyCut;
@@ -75,8 +77,8 @@ public class SFXManager : MonoBehaviour
         if (Math.Round((decimal)volume, 2) > 1){
             volume = 0f;
         }
-        //PlayerPrefs.SetFloat(Preferences.SFX_VOLUME.ToString(), volume);
-        //PlayerPrefs.Save();        
+        PlayerPrefs.SetFloat(Preferences.SFX_VOLUME.ToString(), volume);
+        PlayerPrefs.Save();        
     }
 
     public float GetVolume() {

@@ -13,9 +13,12 @@ public class MusicManager : MonoBehaviour
     private void Awake() {
         Instance = this;
         _audioSource = GetComponent<AudioSource>();
+        if (PlayerPrefs.HasKey(Preferences.MUSIC_VOLUME.ToString())){
+            volume = PlayerPrefs.GetFloat(Preferences.MUSIC_VOLUME.ToString());    
+        }        
     }
     void Start() {
-        //volume = PlayerPrefs.GetFloat(Preferences.MUSIC_VOLUME.ToString());
+
         _audioSource.volume = volume;
     }
 
@@ -24,8 +27,8 @@ public class MusicManager : MonoBehaviour
         if (Math.Round((decimal)volume, 2) > 1){
             volume = 0f;
         }
-        //PlayerPrefs.SetFloat(Preferences.MUSIC_VOLUME.ToString(), volume);
-        //PlayerPrefs.Save();
+        PlayerPrefs.SetFloat(Preferences.MUSIC_VOLUME.ToString(), volume);
+        PlayerPrefs.Save();
         _audioSource.volume = volume;
     }
     
