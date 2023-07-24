@@ -9,11 +9,17 @@ public class SFXManager : MonoBehaviour
 {
     
     public static SFXManager Instance {get; private set; }
+
+    private float volume = 1f;
     
     [SerializeField]
     private SoundFX_SO sfx;
-    void Start() {
+
+    private void Awake() {
         Instance = this;
+    }
+    void Start() {
+        //volume = PlayerPrefs.GetFloat(Preferences.SFX_VOLUME.ToString());
         DeliveryManager.Instance.OnOrderSuccess += OnOrderSuccess;
         DeliveryManager.Instance.OnOrderFailed += OnOrderFailed;
         CutterCounter.OnAnyCut += OnAnyCut;
@@ -52,21 +58,29 @@ public class SFXManager : MonoBehaviour
         PlaySound(clip, (sender as GameObject).transform.position);
     }
     
-    // private void OnPickupObject(object sender, EventArgs e) {
-    //     AudioClip clip = GetAudioClip(sfx.objectPickup);
-    //     PlaySound(clip, (sender as BaseCounter).transform.position);
-    // }
-    
     private AudioClip GetAudioClip(List<AudioClip> clips) {
         return clips[Random.Range(0, clips.Count)];
     }
     // Update is called once per frame
-    public void PlaySound(AudioClip clip, Vector3 position, float volume = 1.0f) {
-        AudioSource.PlayClipAtPoint(clip, position, volume);
+    public void PlaySound(AudioClip clip, Vector3 position) {
+        AudioSource.PlayClipAtPoint(clip, position, volume );
     }
 
-    public void PlayFootsteps(Vector3 position, float volume = 1.0f) {
+    public void PlayFootsteps(Vector3 position) {
         AudioClip clip = GetAudioClip(sfx.footstep);
-        AudioSource.PlayClipAtPoint(clip, position, volume);
+        AudioSource.PlayClipAtPoint(clip, position, volume );
     }
+    public void ChangeVolume() {
+        volume += 0.1f;
+        if (Math.Round((decimal)volume, 2) > 1){
+            volume = 0f;
+        }
+        //PlayerPrefs.SetFloat(Preferences.SFX_VOLUME.ToString(), volume);
+        //PlayerPrefs.Save();        
+    }
+
+    public float GetVolume() {
+        return volume;
+    }
+    
 }

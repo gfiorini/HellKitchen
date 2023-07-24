@@ -25,7 +25,6 @@ public class PlayerSound : MonoBehaviour
         }
     }
     private void PlayMoveSound() {
-        float volume = 1f;
-        SFXManager.Instance.PlayFootsteps(player.transform.position, volume);
+        SFXManager.Instance.PlayFootsteps(player.transform.position);
     }
 }
