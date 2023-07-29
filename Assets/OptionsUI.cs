@@ -18,6 +18,50 @@ public class OptionsUI : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI soundEffectsLabel;
+
+    [SerializeField]
+    private Button moveUpButton;
+    
+    [SerializeField]
+    private Button moveDownButton;
+
+    [SerializeField]
+    private Button moveLeftButton;
+
+    [SerializeField]
+    private Button moveRightButton;
+
+    [SerializeField]
+    private Button interactButton;
+
+    [SerializeField]
+    private Button alternateInteractButton;
+
+    [SerializeField]
+    private Button pauseButton;
+    
+    [SerializeField]
+    private TextMeshProUGUI moveUpLabel;
+    
+    [SerializeField]
+    private TextMeshProUGUI moveDownLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI moveLeftLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI moveRightLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI interactLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI alternateInteractLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI pauseLabel;
+
+    
     
     [SerializeField]
     private Button musicVolumeButton;
@@ -52,6 +96,16 @@ public class OptionsUI : MonoBehaviour
         float musicVolume = MusicManager.Instance.GetVolume();
         soundEffectsLabel.text = "Sound Effects Volume: " + Math.Round(sfxVolume * 10).ToString();
         musicLabel.text = "Music Volume: " + Math.Round(musicVolume * 10).ToString();
+
+        moveUpLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.MOVE_UP);
+        moveDownLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.MOVE_DOWN);
+        moveLeftLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.MOVE_LEFT);
+        moveRightLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.MOVE_RIGHT);
+        interactLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.INTERACT);
+        alternateInteractLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.ALT_INTERACT);
+        pauseLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.PAUSE);
+        
+
     }
     void Start() {
         GameManager.Instance.OnResume += OnResume;

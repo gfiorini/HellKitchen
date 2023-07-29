@@ -20,6 +20,9 @@ public class StoveCounter : BaseCounter, IHasProgress
         OVERCOOKING
     }
     
+    
+    
+    
     [SerializeField]
     private StoveKitchenObjectRecipeSO[] recipes;
 

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
+
     public enum GameState
     {
         WAIT_TO_START,
@@ -90,4 +91,5 @@ public class GameManager : MonoBehaviour
     public float GetPlayTimerNormalized() {
         return currentRunTimer / MAX_RUN_TIMER;
     }
+
 }
