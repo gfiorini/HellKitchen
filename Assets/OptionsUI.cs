@@ -61,6 +61,9 @@ public class OptionsUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI pauseLabel;
 
+    [SerializeField]
+    private Transform keyPopup;
+
     
     
     [SerializeField]
@@ -71,27 +74,47 @@ public class OptionsUI : MonoBehaviour
     
     private void Awake() {
         Instance = this;
-        exitButton.onClick.AddListener(() => {
-            Hide();
-        });
-        musicVolumeButton.onClick.AddListener(() => {
-            ChangeMusicVolume();
-        });
-        soundEffectsVolumeButton.onClick.AddListener(() => {
-            ChangeSFXVolume();
-        });              
+        
+        HidePopup();
+        
+        exitButton.onClick.AddListener(() => { Hide(); });
+        musicVolumeButton.onClick.AddListener(() => { ChangeMusicVolume(); });
+        soundEffectsVolumeButton.onClick.AddListener(() => { ChangeSFXVolume(); });
+        
+        moveUpButton.onClick.AddListener(() => { RemapKey(GameInput.Binding.MOVE_UP); });
+        moveDownButton.onClick.AddListener(() => { RemapKey(GameInput.Binding.MOVE_DOWN); });
+        moveLeftButton.onClick.AddListener(() => { RemapKey(GameInput.Binding.MOVE_LEFT); });
+        moveRightButton.onClick.AddListener(() => { RemapKey(GameInput.Binding.MOVE_RIGHT); });
+        interactButton.onClick.AddListener(() => { RemapKey(GameInput.Binding.INTERACT); });
+        alternateInteractButton.onClick.AddListener(() => { RemapKey(GameInput.Binding.ALT_INTERACT); });
+        pauseButton.onClick.AddListener(() => { RemapKey(GameInput.Binding.PAUSE); });        
+    }
+    private void HidePopup() {
+        keyPopup.gameObject.SetActive(false);
     }
     
+    private void ShowPopup() {
+        keyPopup.gameObject.SetActive(true);
+    }    
+    private void RemapKey(GameInput.Binding binding) {
+        ShowPopup();
+        GameInput.Instance.Rebind(binding, onRebound);
+    }
+
+    private void onRebound() {
+        HidePopup();
+        UpdateVisual();
+    }
     
     private void ChangeMusicVolume() {
         MusicManager.Instance.ChangeVolume();
-        UpdateLabel();
+        UpdateVisual();
     }
     private void ChangeSFXVolume() {
         SFXManager.Instance.ChangeVolume();
-        UpdateLabel();
+        UpdateVisual();
     }
-    private void UpdateLabel() {
+    private void UpdateVisual() {
         float sfxVolume = SFXManager.Instance.GetVolume();
         float musicVolume = MusicManager.Instance.GetVolume();
         soundEffectsLabel.text = "Sound Effects Volume: " + Math.Round(sfxVolume * 10).ToString();
@@ -105,12 +128,11 @@ public class OptionsUI : MonoBehaviour
         alternateInteractLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.ALT_INTERACT);
         pauseLabel.text = GameInput.Instance.GetBindingText(GameInput.Binding.PAUSE);
         
-
     }
     void Start() {
         GameManager.Instance.OnResume += OnResume;
         Hide();
-        UpdateLabel();
+        UpdateVisual();
     }
     
     private void OnDestroy() {

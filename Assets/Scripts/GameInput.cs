@@ -50,7 +50,62 @@ public class GameInput : MonoBehaviour
 
         throw new Exception("Undefined Binding");
     }
-    
+
+    public void Rebind(Binding binding, Action onRebound) {
+
+        InputAction inputAction;
+        int index;
+
+        switch (binding){
+            case Binding.MOVE_UP:
+                inputAction = playerInputActions.Player.Move;
+                index = 1;
+                Rebind(inputAction, index, onRebound);
+                break;
+            case Binding.MOVE_DOWN:
+                inputAction = playerInputActions.Player.Move;
+                index = 2;
+                Rebind(inputAction, index, onRebound);
+                break;
+            case Binding.MOVE_LEFT:
+                inputAction = playerInputActions.Player.Move;
+                index = 3;
+                Rebind(inputAction, index, onRebound);
+                break;
+            case Binding.MOVE_RIGHT:
+                inputAction = playerInputActions.Player.Move;
+                index = 4;
+                Rebind(inputAction, index, onRebound);
+                break;   
+            case Binding.INTERACT:
+                inputAction = playerInputActions.Player.Interaction;
+                index = 0;
+                Rebind(inputAction, index, onRebound);
+                break;                
+            case Binding.ALT_INTERACT:
+                inputAction = playerInputActions.Player.AlternateInteraction;
+                index = 0;
+                Rebind(inputAction, index, onRebound);
+                break; 
+            case Binding.PAUSE:
+                inputAction = playerInputActions.Player.Pause;
+                index = 0;
+                Rebind(inputAction, index, onRebound);
+                break; 
+        }
+    }
+    private void Rebind(InputAction inputAction, int rebindIndex, Action onRebound) { 
+        
+        playerInputActions.Player.Disable();
+        inputAction.PerformInteractiveRebinding(rebindIndex).
+                    OnComplete((callback) => {
+                        callback.Dispose();
+                        playerInputActions.Player.Enable();
+                        onRebound();
+                    }).
+                    Start(); 
+    }
+
     private void Awake() {
         Instance = this;
         playerInputActions = new PlayerInputActions();
@@ -74,4 +129,5 @@ public class GameInput : MonoBehaviour
         Vector2 control = playerInputActions.Player.Move.ReadValue<Vector2>();
         return control;
     }
+
 }
