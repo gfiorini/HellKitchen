@@ -116,12 +116,12 @@ public class Player : MonoBehaviour,  IParentable
                 Move(moveDistance, direction, direction);
             } else{
                 Vector3 xDirection = new Vector3(direction.x, 0, 0).normalized;
-                canMove = CanMove(xDirection, moveDistance);
+                canMove = CanMove(xDirection, moveDistance) && (direction.x > 0.5 || direction.x < -0.5);
                 if (canMove){
                     Move(moveDistance, xDirection, direction);
                 } else{
                     Vector3 zDirection = new Vector3(0, 0, direction.z).normalized;
-                    canMove = CanMove(zDirection, moveDistance);
+                    canMove = CanMove(zDirection, moveDistance) && (direction.z > 0.5 || direction.z < -0.5);
                     if (canMove){
                         Move(moveDistance, zDirection, direction);
                     }

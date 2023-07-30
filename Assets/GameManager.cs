@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     private float waitToStartTimer = 1f;
     private float countdownTimer = 3f;
-    private float MAX_RUN_TIMER = 10f;
+    private float GAMEPLAY_TIMER = 60f;
     private float currentRunTimer;
     
     private GameState state = GameState.WAIT_TO_START;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
                 break;                
             case GameState.RUNNING:
                 currentRunTimer += Time.deltaTime;
-                if (currentRunTimer >= MAX_RUN_TIMER){
+                if (currentRunTimer >= GAMEPLAY_TIMER){
                     state = GameState.GAME_OVER;
                     OnGameStateChange?.Invoke(this, new EventGameState(){state = state});            
                 }
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     }
     
     public float GetPlayTimerNormalized() {
-        return currentRunTimer / MAX_RUN_TIMER;
+        return currentRunTimer / GAMEPLAY_TIMER;
     }
 
 }
