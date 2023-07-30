@@ -122,8 +122,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3da2ed66-c585-4f6f-9ce8-63ac23f14684"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""id"": ""5486ac7d-b602-4a7a-8784-db9282adbd8b"",
+                    ""path"": ""<DualShockGamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -144,6 +144,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""56d69d97-48b3-41b2-be6e-46470c617405"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""e100c1af-4592-4f01-8d3d-1002a9c2297f"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
@@ -155,8 +166,30 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""650d61fa-5b42-4265-b5a6-917c33f0192b"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AlternateInteraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2606caf2-1e5e-416a-89ae-d69c963f277c"",
                     ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""137ef915-a0b7-40d0-a964-799f56ff6e03"",
+                    ""path"": ""<DualShockGamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
