@@ -22,7 +22,10 @@ public class GameInput : MonoBehaviour
         MOVE_RIGHT,
         INTERACT,
         ALT_INTERACT,
-        PAUSE
+        PAUSE,
+        INTERACT_PS,
+        ALT_INTERACT_PS,
+        PAUSE_PS        
     }
     
     private void Awake() {
@@ -58,8 +61,14 @@ public class GameInput : MonoBehaviour
                 if (s.Length > 3){
                     s = s.Substring(0, 3);
                 }
-
                 return s;
+            case Binding.INTERACT_PS:
+                return playerInputActions.Player.Interaction.bindings[1].ToDisplayString();
+            case Binding.ALT_INTERACT_PS:
+                return playerInputActions.Player.AlternateInteraction.bindings[1].ToDisplayString();
+            case Binding.PAUSE_PS:
+                return playerInputActions.Player.Pause.bindings[1].ToDisplayString();
+       
         }
 
         throw new Exception("Undefined Binding");
@@ -106,6 +115,21 @@ public class GameInput : MonoBehaviour
                 index = 0;
                 Rebind(inputAction, index, onRebound);
                 break; 
+            case Binding.INTERACT_PS:
+                inputAction = playerInputActions.Player.Interaction;
+                index = 1;
+                Rebind(inputAction, index, onRebound);
+                break;                
+            case Binding.ALT_INTERACT_PS:
+                inputAction = playerInputActions.Player.AlternateInteraction;
+                index = 1;
+                Rebind(inputAction, index, onRebound);
+                break; 
+            case Binding.PAUSE_PS:
+                inputAction = playerInputActions.Player.Pause;
+                index = 1;
+                Rebind(inputAction, index, onRebound);
+                break;             
         }
     }
     private void Rebind(InputAction inputAction, int rebindIndex, Action onRebound) { 
