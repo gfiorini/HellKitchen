@@ -25,6 +25,20 @@ public class GameInput : MonoBehaviour
         PAUSE
     }
     
+    private void Awake() {
+        Instance = this;
+        playerInputActions = new PlayerInputActions();
+
+        if (PlayerPrefs.HasKey(Preferences.KEY_MAPPING.ToString())){
+            playerInputActions.LoadBindingOverridesFromJson(PlayerPrefs.GetString(Preferences.KEY_MAPPING.ToString()));    
+        }
+            
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Interaction.performed += InteractionOnperformed;
+        playerInputActions.Player.AlternateInteraction.performed += AlternateInteractionPerformed;
+        playerInputActions.Player.Pause.performed += OnPausePerformed;
+    }    
+    
     public String GetBindingText(Binding binding) {
         switch (binding){
             case Binding.MOVE_UP:
@@ -101,19 +115,14 @@ public class GameInput : MonoBehaviour
                     OnComplete((callback) => {
                         callback.Dispose();
                         playerInputActions.Player.Enable();
+                        string json = playerInputActions.SaveBindingOverridesAsJson();
+                        PlayerPrefs.SetString(Preferences.KEY_MAPPING.ToString(), json);
+                        PlayerPrefs.Save();
                         onRebound();
                     }).
                     Start(); 
     }
 
-    private void Awake() {
-        Instance = this;
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
-        playerInputActions.Player.Interaction.performed += InteractionOnperformed;
-        playerInputActions.Player.AlternateInteraction.performed += AlternateInteractionPerformed;
-        playerInputActions.Player.Pause.performed += OnPausePerformed;
-    }
     private void OnPausePerformed(InputAction.CallbackContext obj) {
         OnPauseHandler?.Invoke(obj, EventArgs.Empty);
     }
