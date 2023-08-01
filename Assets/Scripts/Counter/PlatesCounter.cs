@@ -18,7 +18,7 @@ public class PlatesCounter : BaseCounter
 
     private float timer;
     private void Update(){
-        if (numPlates < MAX_NUM_PLATES){
+        if (GameManager.Instance.GetState() == GameManager.GameState.RUNNING && numPlates < MAX_NUM_PLATES){
             timer += Time.deltaTime;
             if (timer > SPAWN_TIMER){
                 numPlates++;

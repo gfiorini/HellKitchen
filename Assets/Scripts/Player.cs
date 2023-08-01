@@ -80,8 +80,6 @@ public class Player : MonoBehaviour,  IParentable
             lastDirection = direction;
         }
         
-        isWalking = direction != Vector3.zero;
-
         HandleSelectedCounter(lastDirection);
         HandleMove(direction);
 
@@ -108,6 +106,10 @@ public class Player : MonoBehaviour,  IParentable
     }
 
     private void HandleMove(Vector3 direction) {
+        if (GameManager.Instance.GetState() != GameManager.GameState.RUNNING){
+            return;
+        }        
+        isWalking = direction != Vector3.zero;        
         if (direction != Vector3.zero){
             float moveDistance = Time.deltaTime * speed;
             Boolean canMove = CanMove(direction, moveDistance);

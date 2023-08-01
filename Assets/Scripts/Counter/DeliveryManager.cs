@@ -33,7 +33,7 @@ public class DeliveryManager : MonoBehaviour
     }
 
     private void Update() {
-        if (waitingList.Count <= MAX_RECIPES){
+        if (GameManager.Instance.GetState() == GameManager.GameState.RUNNING &&  waitingList.Count <= MAX_RECIPES){
             currentSpawnTimer += Time.deltaTime;
             if (currentSpawnTimer >= SPAWN_TIMER){
                 RecipeSO recipe = recipeCollection.recipes[Random.Range(0, recipeCollection.recipes.Count)];

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnPause;
     public event EventHandler OnResume;
 
-    private float waitToStartTimer = 1f;
+    //private float waitToStartTimer = 1f;
     private float countdownTimer = 3f;
     private float GAMEPLAY_TIMER = 60f;
     private float currentRunTimer;
@@ -41,15 +42,17 @@ public class GameManager : MonoBehaviour
     private void Start() {
         isPaused = false;
         GameInput.Instance.OnPauseHandler += GameInputOnPauseHandler;
+        GameInput.Instance.OnInteractHandler += OnInteractHandler;
+    }
+    private void OnInteractHandler(object sender, EventArgs e) {
+        if (state == GameState.WAIT_TO_START){
+            state = GameState.COUNTDOWN;
+            OnGameStateChange?.Invoke(this, new EventGameState(){state = state});
+        }
     }
     private void Update() {
         switch (state){
             case GameState.WAIT_TO_START:
-                waitToStartTimer -= Time.deltaTime;
-                if (waitToStartTimer < 0){
-                    state = GameState.COUNTDOWN;
-                    OnGameStateChange?.Invoke(this, new EventGameState(){state = state});
-                }
                 break;
             case GameState.COUNTDOWN:
                 countdownTimer -= Time.deltaTime;
@@ -90,6 +93,10 @@ public class GameManager : MonoBehaviour
     
     public float GetPlayTimerNormalized() {
         return currentRunTimer / GAMEPLAY_TIMER;
+    }
+
+    public GameState GetState() {
+        return state;
     }
 
 }
