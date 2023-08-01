@@ -60,7 +60,7 @@ public class StoveCounter : BaseCounter, IHasProgress
             elapsedCookTime = 0;
             overCookTime = 0;
             IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
-            p.progressNormalized = 1;
+            //p.progressNormalized = 1;
             OnProgressChange?.Invoke(this,p);
         } else{
             IHasProgress.OnProgressChangeArgs p = new IHasProgress.OnProgressChangeArgs();
@@ -135,6 +135,8 @@ public class StoveCounter : BaseCounter, IHasProgress
         }
         return null;
     }
+    
+    public StoveState GetState() => state;
 
 }
 

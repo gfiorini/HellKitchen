@@ -86,7 +86,11 @@ public class SFXManager : MonoBehaviour
     }
 
     public void PlayCountdown() {
-        AudioClip clip = GetAudioClip(sfx.warning.GetRange(0,1));
+        AudioClip clip = sfx.warning[0];//GetAudioClip(sfx.warning.GetRange(0,1));
         AudioSource.PlayClipAtPoint(clip, Vector3.zero, volume );
+    }
+    public void PlayWarning(Vector3 position) {
+        AudioClip clip = sfx.warning[1];
+        AudioSource.PlayClipAtPoint(clip, position, volume );
     }
 }
