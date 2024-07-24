@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     //private float waitToStartTimer = 1f;
     private float countdownTimer = 3f;
-    private float GAMEPLAY_TIMER = 60f;
+    private float GAMEPLAY_TIMER = 180f;
     private float currentRunTimer;
     
     private GameState state = GameState.WAIT_TO_START;
